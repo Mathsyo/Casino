@@ -17,7 +17,6 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -34,12 +33,16 @@
                 font-family: 'Nunito', sans-serif;
             }
             .navbar {
-                background-color: #212529 !important;
+                background: linear-gradient(0deg,rgba(51,51,54,0),rgba(32,32,32,0.8));
+                transition: all 0.3s;
             }
-            .navbar-dark .navbar-brand {
+            .navbar.affix {
+                background-color: #212529;
+            }
+            .navbar .navbar-brand, .navbar .nav-item {
                 color: lightgrey !important;
             }
-            .navbar-dark .navbar-brand:hover {
+            .navbar .navbar-brand:hover, .navbar .nav-item:hover {
                 color: white;
             }
         </style>
@@ -118,7 +121,6 @@
         </header>
 
         <!-- Main Content -->
-        <div class="container my-5 py-5" id="main_container">
             <div id="main">
                 @yield('content')
             </div>
@@ -133,7 +135,7 @@
                 .css('height',' 1.4em')
                 .css('font-size',' 1.1em');
             setInterval(() => {
-                $('#main_container').css('min-height', window.innerHeight-50+"px");
+                $('#main_container').css('min-height', window.innerHeight-25+"px");
             }, 500);
         </script> 
 
@@ -144,6 +146,16 @@
             var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
             var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                 return new bootstrap.Popover(popoverTriggerEl)
+            })
+            $(document).ready(function(){
+                $(window).scroll(function(){
+                    var scroll = $(window).scrollTop();
+                    if (scroll > 300) {
+                        $(".navbar").addClass('affix');
+                    }else{
+                        $(".navbar").removeClass('affix');
+                    }
+                })
             })
         </script>
 
